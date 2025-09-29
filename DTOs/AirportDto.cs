@@ -8,3 +8,5 @@ namespace FlightInfo.Api.DTOs
         public int CityId { get; set; }
     }
 }
+
+

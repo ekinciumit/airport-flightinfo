@@ -116,7 +116,7 @@ namespace FlightInfo.Api.Services
         public async Task<IEnumerable<object>> GetFlightPricesAsync(int flightId)
         {
             var flight = await _context.Flights.FindAsync(flightId);
-            if (flight == null) throw new ArgumentException("Uçuş bulunamadı.");
+            if (flight == null) throw new ArgumentException("U�u� bulunamad�.");
 
             var prices = await _context.FlightPrices
                 .Where(p => p.FlightId == flightId)
@@ -135,7 +135,7 @@ namespace FlightInfo.Api.Services
         public async Task<object> GetFlightStatusAsync(int flightId)
         {
             var flight = await _context.Flights.FindAsync(flightId);
-            if (flight == null) throw new ArgumentException("Uçuş bulunamadı.");
+            if (flight == null) throw new ArgumentException("U�u� bulunamad�.");
 
             var statusHistory = await _context.FlightStatusHistory
                 .Where(s => s.FlightId == flightId)
@@ -196,7 +196,7 @@ namespace FlightInfo.Api.Services
         public async Task<FlightDto> UpdateFlightAsync(int id, FlightDto updatedFlight)
         {
             var flight = await _context.Flights.FindAsync(id);
-            if (flight == null) throw new ArgumentException("Uçuş bulunamadı.");
+            if (flight == null) throw new ArgumentException("U�u� bulunamad�.");
 
             flight.FlightNumber = updatedFlight.FlightNumber;
             flight.Origin = updatedFlight.Origin;
@@ -222,10 +222,10 @@ namespace FlightInfo.Api.Services
         public async Task<FlightDto> RestoreFlightAsync(int id)
         {
             var flight = await _context.Flights.FindAsync(id);
-            if (flight == null) throw new ArgumentException("Uçuş bulunamadı.");
+            if (flight == null) throw new ArgumentException("U�u� bulunamad�.");
 
             if (flight.Status != "Deleted")
-                throw new InvalidOperationException("Bu uçuş zaten aktif.");
+                throw new InvalidOperationException("Bu u�u� zaten aktif.");
 
             flight.Status = "Scheduled";
             await _context.SaveChangesAsync();

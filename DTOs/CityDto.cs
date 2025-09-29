@@ -9,3 +9,5 @@ namespace FlightInfo.Api.DTOs
         public List<AirportDto> Airports { get; set; } = new List<AirportDto>();
     }
 }
+
+

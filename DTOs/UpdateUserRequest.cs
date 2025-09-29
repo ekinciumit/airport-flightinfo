@@ -8,3 +8,5 @@ namespace FlightInfo.Api.DTOs
         public Role Role { get; set; } = Role.User;
     }
 }
+
+

@@ -11,8 +11,7 @@ namespace FlightInfo.Api.Domain
         public string Currency { get; set; } = "TRY";
         public int AvailableSeats { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        
+
         public Flight Flight { get; set; } = null!;
     }
 }
-

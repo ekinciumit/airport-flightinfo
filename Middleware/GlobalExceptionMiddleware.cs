@@ -33,7 +33,7 @@ namespace FlightInfo.Api.Middleware
 
             var response = new
             {
-                Message = "Bir hata oluştu.",
+                Message = "Bir hata olu�tu.",
                 Details = exception.Message,
                 Timestamp = DateTime.UtcNow
             };

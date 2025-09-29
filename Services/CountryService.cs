@@ -44,12 +44,12 @@ namespace FlightInfo.Api.Services
             foreach (var country in countries)
             {
                 country.Name = FixCountryName(country.Code, country.Name);
-                
+
                 // Şehir isimlerini düzelt
                 foreach (var city in country.Cities)
                 {
                     city.Name = FixCityName(city.Name);
-                    
+
                     // Havalimanı isimlerini düzelt
                     foreach (var airport in city.Airports)
                     {
@@ -147,7 +147,7 @@ namespace FlightInfo.Api.Services
             if (country != null)
             {
                 country.Name = FixCountryName(country.Code, country.Name);
-                
+
                 foreach (var city in country.Cities)
                 {
                     city.Name = FixCityName(city.Name);
@@ -167,7 +167,7 @@ namespace FlightInfo.Api.Services
             return code switch
             {
                 "TR" => "Türkiye",
-                "GB" => "İngiltere", 
+                "GB" => "İngiltere",
                 "IT" => "İtalya",
                 "ES" => "İspanya",
                 "CH" => "İsviçre",
@@ -235,3 +235,5 @@ namespace FlightInfo.Api.Services
         }
     }
 }
+
+

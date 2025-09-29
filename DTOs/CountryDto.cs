@@ -8,3 +8,5 @@ namespace FlightInfo.Api.DTOs
         public List<CityDto> Cities { get; set; } = new List<CityDto>();
     }
 }
+
+

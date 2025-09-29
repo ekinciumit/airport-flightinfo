@@ -28,3 +28,5 @@ namespace FlightInfo.Api.Services
         public string? Status { get; set; } = "Scheduled";
     }
 }
+
+

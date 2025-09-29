@@ -11,3 +11,5 @@ namespace FlightInfo.Api.Services
         bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt);
     }
 }
+
+

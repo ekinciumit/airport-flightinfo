@@ -19,7 +19,7 @@ namespace FlightInfo.Api.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             var result = await _authService.RegisterAsync(request.Email, request.FullName, request.Password);
-            
+
             if (!result.Success)
                 return BadRequest(new { Message = result.Message });
 
@@ -31,7 +31,7 @@ namespace FlightInfo.Api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
             var result = await _authService.LoginAsync(request.Email, request.Password);
-            
+
             if (!result.Success)
                 return Unauthorized(new { Message = "Invalid email or password." });
 

@@ -1,19 +1,8 @@
 {
   "info": {
-    "name": "FlightInfo API Collection",
-    "description": "Complete API collection for FlightInfo reservation system",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "version": "1.0.0"
-  },
-  "auth": {
-    "type": "bearer",
-    "bearer": [
-      {
-        "key": "token",
-        "value": "{{jwt_token}}",
-        "type": "string"
-      }
-    ]
+    "name": "FlightInfo API",
+    "description": "Comprehensive flight information management system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
     {
@@ -22,32 +11,17 @@
       "type": "string"
     },
     {
-      "key": "jwt_token",
-      "value": "",
-      "type": "string"
-    },
-    {
-      "key": "user_id",
-      "value": "",
-      "type": "string"
-    },
-    {
-      "key": "flight_id",
-      "value": "",
-      "type": "string"
-    },
-    {
-      "key": "reservation_id",
+      "key": "token",
       "value": "",
       "type": "string"
     }
   ],
   "item": [
     {
-      "name": "🔐 Authentication",
+      "name": "Authentication",
       "item": [
         {
-          "name": "User Registration",
+          "name": "Register User",
           "request": {
             "method": "POST",
             "header": [
@@ -65,26 +39,10 @@
               "host": ["{{base_url}}"],
               "path": ["api", "auth", "register"]
             }
-          },
-          "response": []
+          }
         },
         {
-          "name": "User Login",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "if (pm.response.code === 200) {",
-                  "    const response = pm.response.json();",
-                  "    pm.collectionVariables.set('jwt_token', response.token);",
-                  "    pm.collectionVariables.set('user_id', response.user.id);",
-                  "    console.log('JWT Token saved:', response.token);",
-                  "}"
-                ]
-              }
-            }
-          ],
+          "name": "Login User",
           "request": {
             "method": "POST",
             "header": [
@@ -103,41 +61,35 @@
               "path": ["api", "auth", "login"]
             }
           },
-          "response": []
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const response = pm.response.json();",
+                  "    pm.collectionVariables.set('token', response.token);",
+                  "}"
+                ]
+              }
+            }
+          ]
         }
       ]
     },
     {
-      "name": "🏥 System Health",
-      "item": [
-        {
-          "name": "Health Check",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/health",
-              "host": ["{{base_url}}"],
-              "path": ["api", "health"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "System Ready",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/health/ready",
-              "host": ["{{base_url}}"],
-              "path": ["api", "health", "ready"]
-            }
-          },
-          "response": []
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/api/health",
+          "host": ["{{base_url}}"],
+          "path": ["api", "health"]
         }
-      ]
+      }
     },
     {
-      "name": "🌍 Countries & Locations",
+      "name": "Countries",
       "item": [
         {
           "name": "Get All Countries",
@@ -148,8 +100,7 @@
               "host": ["{{base_url}}"],
               "path": ["api", "country"]
             }
-          },
-          "response": []
+          }
         },
         {
           "name": "Get Country by ID",
@@ -160,37 +111,12 @@
               "host": ["{{base_url}}"],
               "path": ["api", "country", "1"]
             }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Country Cities",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/country/1/cities",
-              "host": ["{{base_url}}"],
-              "path": ["api", "country", "1", "cities"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get City Airports",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/country/cities/1/airports",
-              "host": ["{{base_url}}"],
-              "path": ["api", "country", "cities", "1", "airports"]
-            }
-          },
-          "response": []
+          }
         }
       ]
     },
     {
-      "name": "✈️ Flights",
+      "name": "Flights",
       "item": [
         {
           "name": "Get All Flights",
@@ -201,15 +127,14 @@
               "host": ["{{base_url}}"],
               "path": ["api", "flight"]
             }
-          },
-          "response": []
+          }
         },
         {
           "name": "Search Flights",
           "request": {
             "method": "GET",
             "url": {
-              "raw": "{{base_url}}/api/flight/search?origin=IST&destination=LHR&departureDate=2024-01-15",
+              "raw": "{{base_url}}/api/flight/search?origin=IST&destination=LHR&departureDate=2024-12-01",
               "host": ["{{base_url}}"],
               "path": ["api", "flight", "search"],
               "query": [
@@ -223,322 +148,16 @@
                 },
                 {
                   "key": "departureDate",
-                  "value": "2024-01-15"
+                  "value": "2024-12-01"
                 }
               ]
             }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Flight by ID",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/flight/1",
-              "host": ["{{base_url}}"],
-              "path": ["api", "flight", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Flight Prices",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/flight/1/prices",
-              "host": ["{{base_url}}"],
-              "path": ["api", "flight", "1", "prices"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Flight Status",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/flight/1/status",
-              "host": ["{{base_url}}"],
-              "path": ["api", "flight", "1", "status"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Flights with Prices",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/flight/with-prices",
-              "host": ["{{base_url}}"],
-              "path": ["api", "flight", "with-prices"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "🎫 Reservations",
-      "item": [
-        {
-          "name": "Get My Reservations",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{jwt_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/reservation",
-              "host": ["{{base_url}}"],
-              "path": ["api", "reservation"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Reservation by ID",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{jwt_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/reservation/1",
-              "host": ["{{base_url}}"],
-              "path": ["api", "reservation", "1"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Create Reservation",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "if (pm.response.code === 201) {",
-                  "    const response = pm.response.json();",
-                  "    pm.collectionVariables.set('reservation_id', response.id);",
-                  "    pm.collectionVariables.set('flight_id', response.flightId);",
-                  "    console.log('Reservation created:', response.id);",
-                  "}"
-                ]
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{jwt_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"FlightId\": 1\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/api/reservation",
-              "host": ["{{base_url}}"],
-              "path": ["api", "reservation"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Cancel Reservation",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{jwt_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "url": {
-              "raw": "{{base_url}}/api/reservation/{{reservation_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "reservation", "{{reservation_id}}"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Restore Reservation",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{jwt_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "PUT",
-            "url": {
-              "raw": "{{base_url}}/api/reservation/restore/{{reservation_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "reservation", "restore", "{{reservation_id}}"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "👥 User Management (Admin)",
-      "item": [
-        {
-          "name": "Get All Users",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{jwt_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/user",
-              "host": ["{{base_url}}"],
-              "path": ["api", "user"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get User by ID",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{jwt_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/user/{{user_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "user", "{{user_id}}"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Update User",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{jwt_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"fullName\": \"Updated User Name\",\n  \"role\": 1\n}"
-            },
-            "url": {
-              "raw": "{{base_url}}/api/user/{{user_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "user", "{{user_id}}"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Delete User",
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{jwt_token}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "url": {
-              "raw": "{{base_url}}/api/user/{{user_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "user", "{{user_id}}"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "📊 System Logs",
-      "item": [
-        {
-          "name": "Get All Logs",
-          "request": {
-            "method": "GET",
-            "url": {
-              "raw": "{{base_url}}/api/log",
-              "host": ["{{base_url}}"],
-              "path": ["api", "log"]
-            }
-          },
-          "response": []
+          }
         }
       ]
     }
   ]
 }
+
+
+
